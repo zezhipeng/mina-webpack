@@ -1,0 +1,62 @@
+<template lang="pug">
+view.container
+  view.userinfo(bindtap='bindViewTap')
+    image.userinfo-avatar(src='{{userInfo.avatarUrl}}', background-size='cover')
+    text.userinfo-nickname {{userInfo.nickName}}
+  view.usermotto
+    text.user-motto {{motto}}
+</template>
+<script>
+const { regeneratorRuntime, util } = global
+
+var app = getApp()
+Page({
+  data: {
+    motto: 'Hello World',
+    userInfo: {}
+  },
+  //事件处理函数
+  bindViewTap: function() {
+    wx.navigateTo({
+      url: '../logs/logs'
+    })
+  },
+  onLoad: function () {
+    console.log('onLoad')
+    var that = this
+    //调用应用实例的方法获取全局数据
+    app.getUserInfo(function(userInfo){
+      //更新数据
+      that.setData({
+        userInfo:userInfo
+      })
+    })
+  }
+})
+</script>
+
+<style lang="sass">
+.userinfo
+  display: flex
+  flex-direction: column
+  align-items: center
+
+
+.userinfo-avatar
+  width: 128rpx
+  height: 128rpx
+  margin: 20rpx
+  border-radius: 50%
+
+
+.userinfo-nickname
+  color: #aaa
+
+
+.usermotto
+  margin-top: 200px
+  text-align: center
+
+
+
+</style>
