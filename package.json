@@ -1,5 +1,5 @@
 {
-  "name": "mina-template",
+  "name": "mina-webpack",
   "version": "1.0.0",
   "scripts": {
     "dev": "node ./build/build.js"
