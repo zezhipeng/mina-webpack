@@ -8,45 +8,7 @@ const { resolve } = require('path')
 const r = url => resolve(process.cwd(), url)
 
 const config = require(r('./mina-config'))
-const con = {
-  stylus: file => new Promise(resolve => {
-    var data = fs.readFileSync(file, 'utf8')
-
-    require('stylus').render(data, { filename: file }, (err, css) => {        
-      resolve(css)
-    }) 
-  }),
-  less: file => new Promise(resolve => {
-    var data = fs.readFileSync(file, 'utf8')
-
-    require('less').render(data, {}, (err, result) => {
-      resolve(result.css)
-    }) 
-  }),
-  scss: file => new Promise(resolve => {
-    var data = fs.readFileSync(file, 'utf8')
-
-    require('node-sass').render({
-      file, 
-      data,
-      outputStyle: 'compressed'
-    }, (err, result) => {
-      resolve(result.css)
-    }) 
-  }),
-  sass: file => new Promise(resolve => {
-    var data = fs.readFileSync(file, 'utf8')
-
-    require('node-sass').render({
-      file, 
-      data,
-      outputStyle: 'compressed',
-      indentedSyntax: true
-    }, (err, result) => {
-      resolve(result.css)
-    }) 
-  })
-}
+const { con, watchStyle } = require('./util')
 
 const assetsPath = r('./dist')
 
@@ -73,10 +35,7 @@ var compiler = webpack(renderConf)
 
 fs.writeFileSync(r('./dist/app.json'), JSON.stringify(config.json), 'utf8')
 
-con[config.style.lang](config.style.url)
-  .then(function (result) {
-    fs.writeFileSync(r('./dist/app.wxss'), result, 'utf8')
-  })
+watchStyle(config.style)
 
 compiler.watch({
   aggregateTimeout: 300, // wait so long for more changes
@@ -90,3 +49,4 @@ compiler.watch({
     chunkModules: true
   }) + '\n\n')
 })
+
