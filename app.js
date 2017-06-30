@@ -1,9 +1,5 @@
-import regeneratorRuntime from 'regenerator-runtime'
-global.regeneratorRuntime = regeneratorRuntime
-
-const util = require('./utils/util')
-
-global.util = util
+import './style/base.sass'
+import './vendor'
 
 App({
   onLaunch: function () {

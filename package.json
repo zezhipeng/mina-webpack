@@ -2,16 +2,22 @@
   "name": "mina-webpack",
   "version": "1.0.0",
   "scripts": {
-    "dev": "node ./build/build.js"
+    "dev": "node ./tasks/build.js"
   },
   "devDependencies": {
     "babel-core": "^6.24.1",
     "babel-preset-env": "^1.4.0",
     "consolidate": "^0.14.5",
+    "css-loader": "^0.28.4",
+    "extract-text-webpack-plugin": "^2.1.2",
     "loader-utils": "^1.1.0",
     "lodash": "^4.17.4",
     "node-sass": "^4.5.3",
+    "postcss-loader": "^2.0.6",
+    "progress-bar-webpack-plugin": "^1.9.3",
+    "sass-loader": "^6.0.6",
     "shelljs": "^0.7.7",
+    "style-loader": "^0.18.2",
     "webpack": "^2.5.1"
   },
   "dependencies": {
@@ -23,7 +29,8 @@
     "pug": "^2.0.0-rc.1",
     "regenerator-runtime": "^0.10.5",
     "vue-template-compiler": "^2.3.3",
-    "wechat-mina-loader": "^0.0.5"
+    "webpack": "^3.0.0",
+    "wechat-mina-loader": "0.0.7"
   },
   "repository": {
     "type": "git",

@@ -8,9 +8,8 @@ const { resolve } = require('path')
 const r = url => resolve(process.cwd(), url)
 
 const config = require(r('./mina-config'))
-const { con, watchStyle } = require('./util')
 
-const assetsPath = r('./dist')
+const assetsPath = r('./mina')
 
 rm('-rf', assetsPath)
 mkdir(assetsPath)
@@ -24,7 +23,7 @@ var entry = () => _.reduce(config.json.pages, (en, i) => {
 }, {})
 
 renderConf.output = {
-  path: r('./dist'),
+  path: r('./mina'),
   filename: '[name].js'
 }
 
@@ -33,13 +32,11 @@ renderConf.entry.app = config.app
 
 var compiler = webpack(renderConf)
 
-fs.writeFileSync(r('./dist/app.json'), JSON.stringify(config.json), 'utf8')
-
-watchStyle(config.style)
+fs.writeFileSync(r('./mina/app.json'), JSON.stringify(config.json), 'utf8')
 
 compiler.watch({
-  aggregateTimeout: 300, // wait so long for more changes
-  poll: true // use polling instead of native watchers
+  aggregateTimeout: 300,
+  poll: true 
 }, (err, stats) => {
   process.stdout.write(stats.toString({
     colors: true,
