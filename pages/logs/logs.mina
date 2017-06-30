@@ -6,7 +6,6 @@ view.container.log-list
 </template>
 
 <script>
-const { regeneratorRuntime, util } = global
 
 Page({
   data: {

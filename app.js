@@ -8,23 +8,15 @@ App({
     logs.unshift(Date.now())
     wx.setStorageSync('logs', logs)
   },
-  async getUserInfo (cb) {
-    if(this.globalData.userInfo){
-      typeof cb == "function" && cb(this.globalData.userInfo)
-    }else{
-      //调用登录接口
-      var that = this
-      wx.login({
-        success: function () {
-          wx.getUserInfo({
-            success: function (res) {
-              that.globalData.userInfo = res.userInfo;
-              typeof cb == "function" && cb(that.globalData.userInfo)
-            }
-          })
-        }
-      });
-    }
+  async getUserInfo () {
+    if (this.globalData.userInfo) return this.globalData.userInfo
+
+    const { code } = await wx.loginAsync()
+    const { userInfo } = await wx.getUserInfoAsync()
+
+    this.globalData.userInfo = userInfo
+
+    return userInfo
   },
   globalData:{
     userInfo:null
